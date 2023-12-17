@@ -4,7 +4,6 @@ import os
 
 def get_logger(name=None):
 
-
     logger = logging.getLogger(name)
 
     # check handler

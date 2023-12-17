@@ -1,12 +1,12 @@
 from flask import Flask, render_template, jsonify, request
-# from flask_cors import CORS
+from flask_cors import CORS
 from configparser import ConfigParser
-from kmap import scraping_kakao
-from nmap import naver_v5_api
+from common import myLogger
+from searchaddr.kmap import scraping_kakao
+from searchaddr.nmap import naver_v5_api
 import urllib.request
 import urllib.parse
 import json
-import myLogger
 
 app = Flask(__name__)
 
@@ -20,8 +20,16 @@ properties = ConfigParser()
 properties.read('./appConfig.ini')
 JUSO_API_KEY = properties.get('COMMON', 'juso_api_confmKey')
 ADDRESS_KEY = properties.get('COMMON', 'address_key')
+ORIGINS_URL = properties.get('COMMON', 'origins_url')
 ### PROP 세팅 END
 
+CORS(
+        app,
+        resources={
+            r"/searchaddr1": {"origins": ORIGINS_URL},
+            r"/searchaddr2": {"origins": ORIGINS_URL},
+        },
+    )
 
 @app.route("/")
 def hello_world():
@@ -118,7 +126,6 @@ def search_zipcode(address):
 
     params_str = urllib.parse.urlencode(params)
     url = "{}?{}".format(urls, params_str)
-    # print(url)
 
     newRequest = urllib.request.Request(url)
     response = urllib.request.urlopen(newRequest)
