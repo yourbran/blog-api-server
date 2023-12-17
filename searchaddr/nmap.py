@@ -1,10 +1,10 @@
 from time import sleep
 from configparser import ConfigParser
+from common import myLogger
 import urllib.request
 import urllib.parse
 import json
 import gzip
-import myLogger
 
 
 ### PROP 세팅 START
