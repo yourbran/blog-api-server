@@ -28,9 +28,10 @@ def scraping_kakao(pTarget):
 
     options = webdriver.ChromeOptions()
     options.add_argument("--headless")
+    options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
     driver = webdriver.Chrome(
-        service=ChromeService(ChromeDriverManager().install()), options=options
+        service=ChromeService("/flaskapi/chromedriver/chromedriver"), options=options
     )
 
     logger.log(LOGGING_DATA, "[KAKAO] API START")
@@ -87,7 +88,7 @@ def scraping_kakao(pTarget):
                     driver.find_element(
                         By.XPATH, '//*[@id="info.search.page.next"]'
                     ).send_keys(Keys.ENTER)
-                    sleep(0.2)
+                    sleep(0.4)
                     page = 0
                     
             except Exception as e:

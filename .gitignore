@@ -163,5 +163,9 @@ cython_debug/
 # App
 appConfig.ini
 
+# Google Chrome Lib
+chrome_114_amd64.deb
+chromedriver_114.tar
+
 # App logs
 logs/
